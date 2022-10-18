@@ -22,7 +22,7 @@ form.addEventListener('submit', (event) => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     document.querySelector(".modal-wrapper").setAttribute("hidden", true);
-    initializeGame(data)
+    initializeGame(data);
     
 });
 
@@ -34,16 +34,33 @@ const initializeVariables = (data) => {
     data.round = 0;
     data.currentPlayer = "X";
     data.gameOver = false;
+};
+
+const addEventListenersToGameBoard = (data) => {
+    document.querySelectorAll(".box").forEach(box => {
+        box.addEventListener('click', (event) => {
+            playMove(event.target,data)
+        })
+    })
 }
 
 const initializeGame = (data) => {
     //initialize game variables
     initializeVariables(data);
 
-    console.log(data);
-
     //add event listeners to gameboard
+    addEventListenersToGameBoard(data);
 
-    
-    
 };
+
+const playMove = (box,data) => {
+    //is game over, don't do anything
+    if(data.gameOver) {
+        return;
+    }
+    //check if game box has a letter in it
+    if(data.board(box.id) === "X" || data.board(box.id) === "0") {
+        return;
+    }
+    console.log(box,data);
+}
