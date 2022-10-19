@@ -54,13 +54,19 @@ const initializeGame = (data) => {
 };
 
 const playMove = (box,data) => {
-    //is game over, don't do anything
+    //is game over? If game over, don't do anything
     if(data.gameOver) {
         return;
     }
     //check if game box has a letter in it
-    if(data.board(box.id) === "X" || data.board(box.id) === "0") {
+    if (data.board[box.id] === "X" || data.board[box.id] === "0") {
         return;
     }
+
+    //adjust the DOM for player move, and then check win conditions
+
+    data.board[box.id] = data.currentPlayer
+    box.textContent = data.currentPlayer;
+
     console.log(box,data);
-}
+};
