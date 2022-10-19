@@ -65,8 +65,13 @@ const playMove = (box,data) => {
 
     //adjust the DOM for player move, and then check win conditions
 
-    data.board[box.id] = data.currentPlayer
+    data.board[box.id] = data.currentPlayer;
     box.textContent = data.currentPlayer;
+    box.classList.add = (data.currentPlayer === "X" ? "player1" : "player2");
+    //increase the round
+    data.round++
 
     console.log(box,data);
+
+    //check end conditions
 };
