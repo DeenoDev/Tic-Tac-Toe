@@ -97,9 +97,23 @@ const endConditions = (data) => {
    //tie
    //game not over yet
    if (checkWinner(data)) {
+    //adjust the DOM to reflect win
     return true
    } else if (data.round === 9) {
+    //adjust the DOM to reflect tie
     return true;
    }
    return false   
+};
+
+const checkWinner = (data) => {
+    let result = false;
+    winningConditions.forEach(condition => {
+        if(data.board[condition[0]] === data.board[condition[1]] && data.board[condition[1]] === data.board[condition[2]]){
+            console.log('player has won');
+            data.gameOver = true;
+            result = true;
+        }
+    });
+    return result;
 };
