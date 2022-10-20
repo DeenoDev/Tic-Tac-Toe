@@ -92,5 +92,14 @@ const playMove = (box,data) => {
 };
 
 const endConditions = (data) => {
-
-}
+   // 3 potential options
+   //winner 
+   //tie
+   //game not over yet
+   if (checkWinner(data)) {
+    return true
+   } else if (data.round === 9) {
+    return true;
+   }
+   return false   
+};
