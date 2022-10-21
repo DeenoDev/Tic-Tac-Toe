@@ -98,9 +98,12 @@ const endConditions = (data) => {
    //game not over yet
    if (checkWinner(data)) {
     //adjust the DOM to reflect win
-     adjustDom('displayTurn', data.currentPlayer  + ' has won the game');
+    let winnerName =  data.currentPlayer === "X" ? data.player1Name : data.player2Name;
+     adjustDom('displayTurn', winnerName + ' has won the game');
     return true
    } else if (data.round === 9) {
+    adjustDom('displayTurn', "It's a Tie!");
+    data.gameOver = true;
     //adjust the DOM to reflect tie
     return true;
    }
