@@ -98,7 +98,7 @@ const endConditions = (data) => {
    //game not over yet
    if (checkWinner(data)) {
     //adjust the DOM to reflect win
-
+     adjustDom('displayTurn', data.currentPlayer  + ' has won the game');
     return true
    } else if (data.round === 9) {
     //adjust the DOM to reflect tie
@@ -121,7 +121,6 @@ const checkWinner = (data) => {
 
 const adjustDom = (className, textContent) => {
     const elem = document.querySelector(`.${className}`);
-    elem.setAttribute('display', 'block');
     elem.textContent = textContent;
 
-}
+};
