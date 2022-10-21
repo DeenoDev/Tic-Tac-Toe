@@ -42,7 +42,7 @@ const initializeVariables = (data) => {
     data.choice = +data.choice;
     data.board = [0,1,2,3,4,5,6,7,8];
     data.player1 = "X";
-    data.player2 = "0";
+    data.player2 = "O";
     data.round = 0;
     data.currentPlayer = "X";
     data.gameOver = false;
@@ -71,7 +71,7 @@ const playMove = (box,data) => {
         return;
     }
     //check if game box has a letter in it
-    if (data.board[box.id] === "X" || data.board[box.id] === "0") {
+    if (data.board[box.id] === "X" || data.board[box.id] === "O") {
         return;
     }
 
@@ -90,8 +90,8 @@ const playMove = (box,data) => {
     }
 
     //change current player
-    //change the DOM
-    changePlayer(data)
+    //change the DOM, change data.currentPlayer
+    changePlayer(data);
 };
 
 
@@ -130,4 +130,11 @@ const adjustDom = (className, textContent) => {
     const elem = document.querySelector(`.${className}`);
     elem.textContent = textContent;
 
+};
+
+const changePlayer = (data) => {
+    data.currentPlayer = data.currentPlayer === "X" ? "O" : "X";
+    //adjust the DOM
+    let displayTurnText = data.currentPlayer === "X" ? data.player1Name : data.player2Name;
+    adjustDom('displayTurn', `${displayTurnText}'s turn`);
 };
