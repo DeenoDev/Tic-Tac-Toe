@@ -83,13 +83,17 @@ const playMove = (box,data) => {
     //increase the round
     data.round++
 
-    console.log(box,data);
-
     //check end conditions
     if (endConditions(data)){
+        return;
         //adjust DOM to reflect endConditions
     }
+
+    //change current player
+    //change the DOM
+    changePlayer(data)
 };
+
 
 const endConditions = (data) => {
    // 3 potential options
