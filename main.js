@@ -148,3 +148,21 @@ const changePlayer = (data) => {
     let displayTurnText = data.currentPlayer === "X" ? data.player1Name : data.player2Name;
     adjustDom('displayTurn', `${displayTurnText}'s turn`);
 };
+
+const easyAiMove = (data) => {
+    changePlayer(data);
+    let availableSpaces = data.board.filter(
+        (space) => space !== "X" &&  space !== "O");
+        let move = availableSpaces[Math.floor(Math.random()*availableSpaces.length)];
+        data.board[move] = data.player2;
+        let box = document.getElementById(`${move}`)
+        box.textContent = data.player2;
+        box.classList.add = ("player2");
+
+       if(endConditions(data)){
+        console.log(data);
+        console.log('end game');
+       }
+        changePlayer(move);
+
+};
