@@ -93,7 +93,15 @@ const playMove = (box,data) => {
 
     //change current player
     //change the DOM, change data.currentPlayer
-    changePlayer(data);
+    if (data.choice === 0){
+       changePlayer(data);
+    } else if(data.choice === 1){
+        //easy ai
+        easyAiMove(data);
+        data.currentPlayer = "X";
+        //change back to player1
+    }
+    
 };
 
 
