@@ -58,6 +58,8 @@ const addEventListenersToGameBoard = (data) => {
 
 const initializeGame = (data) => {
     //initialize game variables
+    
+    adjustDom('displayTurn', `${data.player1Name}'s turn`);
     initializeVariables(data);
 
     //add event listeners to gameboard
