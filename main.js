@@ -151,6 +151,7 @@ const changePlayer = (data) => {
 
 const easyAiMove = (data) => {
     changePlayer(data);
+    
     let availableSpaces = data.board.filter(
         (space) => space !== "X" &&  space !== "O");
         let move = availableSpaces[Math.floor(Math.random()*availableSpaces.length)];
@@ -160,9 +161,8 @@ const easyAiMove = (data) => {
         box.classList.add = ("player2");
 
        if(endConditions(data)){
-        console.log(data);
-        console.log('end game');
+        return;
        }
-        changePlayer(move);
+        changePlayer(data);
 
 };
