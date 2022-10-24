@@ -100,6 +100,9 @@ const playMove = (box,data) => {
         easyAiMove(data);
         data.currentPlayer = "X";
         //change back to player1
+    } else if(data.choice === 2){
+        impossibleAIMove(data);
+        data.currentPlayer = "X";
     }
     
 };
