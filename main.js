@@ -173,4 +173,40 @@ const easyAiMove = (data) => {
 
 const impossibleAIMove = (data) => {
     data.round++;
+    //get best possible move from minimax algorithm.
+};
+
+const minimax = (data, player) => {
+    let availableSpaces = data.board.filter(
+        (space) => space !== "X" &&  space !== "O");
+        //check if winner, if player1 wins set score to -100
+        //if tie, set score to 0.
+        //if win set score to 100
+
+        const potentialMoves = [];
+        //loop over available spaces to get list of all potential moves and check if wins
+        for(let i = 0; i < availableSpaces.length; i++){
+            let move = {};
+            move.index = data.board[availableSpaces[i]];
+            if(player === data.player2){
+                move.score = minimax(data, "X").score
+            } else {
+                move.score = minimax(data, "O").score
+            }
+            //set the move to the board
+            data.board[availableSpaces[i]] = move.index;
+            //push the potential move to the array
+            potentialMoves.push(move);
+        }
+
+        let bestMove = 0;
+        if(player === data.player2) {
+            let bestScore = -1000;
+            for (let i = 0; i < potentialMoves.length; i++){
+                if(potentialMoves[i].score > bestScore){
+                    bestScore = potentialMoves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
 }
