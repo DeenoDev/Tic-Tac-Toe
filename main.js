@@ -154,6 +154,7 @@ const changePlayer = (data) => {
 
 const easyAiMove = (data) => {
     changePlayer(data);
+    data.round++;
     
     let availableSpaces = data.board.filter(
         (space) => space !== "X" &&  space !== "O");
@@ -169,3 +170,7 @@ const easyAiMove = (data) => {
         changePlayer(data);
 
 };
+
+const impossibleAIMove = (data) => {
+    data.round++;
+}
