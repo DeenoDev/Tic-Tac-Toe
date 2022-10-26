@@ -113,7 +113,7 @@ const endConditions = (data) => {
    //winner 
    //tie
    //game not over yet
-   if (checkWinner(data)) {
+   if (checkWinner(data.currentPlayer)) {
     //adjust the DOM to reflect win
     let winnerName =  data.currentPlayer === "X" ? data.player1Name : data.player2Name;
      adjustDom('displayTurn', winnerName + ' has won the game');
@@ -127,17 +127,19 @@ const endConditions = (data) => {
    return false   
 };
 
-const checkWinner = (data) => {
+const checkWinner = (data, player) => {
     let result = false;
-    winningConditions.forEach(condition => {
-        if(data.board[condition[0]] === data.board[condition[1]] && data.board[condition[1]] === data.board[condition[2]]){
-            
-            data.gameOver = true;
-            result = true;
-        }
+    winningConditions.forEach((condition) => {
+      if (
+        data.board[condition[0]] === player &&
+        data.board[condition[1]] === player &&
+        data.board[condition[2]] === player
+      ) {
+        result = true;
+      }
     });
     return result;
-};
+  };
 
 const adjustDom = (className, textContent) => {
     const elem = document.querySelector(`.${className}`);
@@ -174,11 +176,29 @@ const easyAiMove = (data) => {
 const impossibleAIMove = (data) => {
     data.round++;
     //get best possible move from minimax algorithm.
+    const move = minimax(data, "O").index;
+    data.board(move)= data.player2;
+
+    data.currentPlayer = "X";
+    console.log(move);
 };
 
 const minimax = (data, player) => {
     let availableSpaces = data.board.filter(
         (space) => space !== "X" &&  space !== "O");
+        if(checkWinner(data, data.player2)){
+            return {
+                score: -100,
+            };
+        } else if (checkWinner(data, data.player1)){
+            return {
+                score: 100,
+            };
+        } else if (availableSpaces.length = 0) {
+            return {
+                score: 0,
+            };
+        }
         //check if winner, if player1 wins set score to -100
         //if tie, set score to 0.
         //if win set score to 100
@@ -188,6 +208,7 @@ const minimax = (data, player) => {
         for(let i = 0; i < availableSpaces.length; i++){
             let move = {};
             move.index = data.board[availableSpaces[i]];
+            data.board[availableSpaces[i]] = player;
             if(player === data.player2){
                 move.score = minimax(data, "X").score
             } else {
@@ -201,12 +222,23 @@ const minimax = (data, player) => {
 
         let bestMove = 0;
         if(player === data.player2) {
-            let bestScore = -1000;
+            let bestScore = -10000;
             for (let i = 0; i < potentialMoves.length; i++){
                 if(potentialMoves[i].score > bestScore){
                     bestScore = potentialMoves[i].score;
                     bestMove = i;
                 }
             }
-        }
-}
+        } else if (player === data.player1) {
+                let bestScore = 10000;
+                for (let i = 0; i < potentialMoves.length; i++){
+                    if(potentialMoves[i].score < bestScore){
+                        bestScore = potentialMoves[i].score;
+                        bestMove = i;
+                    }
+                }
+            }
+
+            return potentialMoves[besMove];
+        };
+
